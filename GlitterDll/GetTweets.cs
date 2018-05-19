@@ -84,5 +84,27 @@ namespace GlitterDll
             return tweetList;
         }
 
+
+        public int TotalTweet() {
+
+            var count = glitterDb.Posts.Count(i => i.Created_at.Date == System.DateTime.Today);
+
+            return count;
+        }
+
+        public TweetDto MostLiked() {
+
+            var tweet = glitterDb.Posts.OrderByDescending(i => i.Like_count).ToList();
+            TweetDto tweetDetail = new TweetDto();
+            tweetDetail.id = tweet[0].id;
+            tweetDetail.Body = tweet[0].Body;
+            tweetDetail.Like_count = tweet[0].Like_count;
+            tweetDetail.User_id = tweet[0].User_id;
+            tweetDetail.dislike_count = tweet[0].dislike_count;
+            tweetDetail.Created_at = tweet[0].Created_at;
+            return tweetDetail;
+
+        }
+
     }
 }

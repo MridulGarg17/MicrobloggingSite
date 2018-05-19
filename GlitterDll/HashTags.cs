@@ -80,5 +80,12 @@ namespace GlitterDll
             return true;
         }
 
+
+        public string MostTrending() {
+
+            var hashTag = glitterDb.Tags.ThenByDescending(i => i.count).ToList();
+            return (hashTag[0].text);
+
+        }
     }
 }

@@ -76,5 +76,13 @@ namespace GlitterDll
             }
             return searchedUsers;
         }
+
+        public string MostTweetPerson() {
+            var personId = glitteDb.Posts.GroupBy(u => u.User_id).OrderBy(grp => grp.Count()).Last().Key;
+            var person = glitteDb.Users.Where(user => user.id == personId).Single();
+
+            return (person.Firstname + person.Lastname);
+            
+        }
     }
 }
