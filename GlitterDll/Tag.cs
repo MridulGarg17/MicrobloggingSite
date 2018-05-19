@@ -23,6 +23,7 @@ namespace GlitterDll
         public int id { get; set; }
         public string text { get; set; }
         public Nullable<int> count { get; set; }
+        public Nullable<int> SearchCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostTagMap> PostTagMaps { get; set; }

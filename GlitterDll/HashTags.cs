@@ -35,6 +35,7 @@ namespace GlitterDll
 
                     newTag.text = s;
                     newTag.count = 1;
+                    newTag.SearchCount = 0;
                     glitterDb.Tags.Add(newTag);
                     glitterDb.SaveChanges();
                 }
@@ -83,7 +84,7 @@ namespace GlitterDll
 
         public string MostTrending() {
 
-            var hashTag = glitterDb.Tags.ThenByDescending(i => i.count).ToList();
+            var hashTag = glitterDb.Tags.OrderByDescending(x => x.SearchCount).ThenByDescending(i => i.count).ToList();
             return (hashTag[0].text);
 
         }
