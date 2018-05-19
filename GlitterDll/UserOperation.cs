@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 
 namespace GlitterDll
 {
-    class UserOperation
+   public class UserOperation
     {
         private GlitterdbEntities glitteDb = new GlitterdbEntities();
 
+        /// <summary>
+        /// Signups the specified new user.
+        /// </summary>
+        /// <param name="newUser">The new user.</param>
+        /// <returns></returns>
         public bool Signup(SignupDto newUser) {
             User user = new User();
 
@@ -34,6 +39,11 @@ namespace GlitterDll
             return false;
         }
 
+        /// <summary>
+        /// Signins the specified user request.
+        /// </summary>
+        /// <param name="userRequest">The user request.</param>
+        /// <returns></returns>
         public int Signin(LoginDto userRequest) {
 
             var user = glitteDb.Users.Where(i => i.Email == userRequest.Email).Single();

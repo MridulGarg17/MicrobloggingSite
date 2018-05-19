@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GlitterDll
 {
-    internal class HashTags
+    public class HashTags
     {
         private GlitterdbEntities glitterDb = new GlitterdbEntities();
 
@@ -55,16 +55,16 @@ namespace GlitterDll
         /// </summary>
         /// <param name="tagList">The tag list.</param>
         /// <returns></returns>
-        public IList<int> RemoveHashtag(IList<string> tagList)
+        public bool RemoveHashtag(IList<int> tagList)
         {
-            IList<int> idList = new List<int>();
+           // IList<int> idList = new List<int>();
 
-            foreach (string s in tagList)
+            foreach (int s in tagList)
             {
 
-                var tag = glitterDb.Tags.Where(i => i.text == s).Single();
-                int tagId = tag.id;
-                idList.Add(tagId);
+                var tag = glitterDb.Tags.Where(i => i.id == s).Single();
+                //int tagId = tag.id;
+               // idList.Add(tagId);
                 if (tag.count == 1)
                 {
                     glitterDb.Tags.Remove(tag);
@@ -77,7 +77,7 @@ namespace GlitterDll
 
             }
 
-            return idList;
+            return true;
         }
 
     }

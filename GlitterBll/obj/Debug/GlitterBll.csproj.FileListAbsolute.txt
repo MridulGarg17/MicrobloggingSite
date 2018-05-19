@@ -1,0 +1,12 @@
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\GlitterBll.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\GlitterBll.pdb
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\DTOs.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\GlitterDll.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\EntityFramework.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\DTOs.pdb
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\GlitterDll.pdb
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\GlitterDll.dll.config
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\bin\Debug\EntityFramework.xml
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\obj\Debug\GlitterBll.csprojResolveAssemblyReference.cache
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\obj\Debug\GlitterBll.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterBll\obj\Debug\GlitterBll.pdb

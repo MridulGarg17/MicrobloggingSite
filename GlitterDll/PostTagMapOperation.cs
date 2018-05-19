@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 namespace GlitterDll
 {
     
-    class PostTagMapOperation
+   public class PostTagMapOperation
     {
         private GlitterdbEntities glitterDb = new GlitterdbEntities();
 
+        /// <summary>
+        /// Adds the specified mapper.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        /// <returns></returns>
         public int Add(PostTagMapDto mapper) {
             PostTagMap map = new PostTagMap();
            int postId = mapper.postId;
@@ -24,6 +29,11 @@ namespace GlitterDll
             return 0;
         }
 
+        /// <summary>
+        /// Removes the specified post identifier.
+        /// </summary>
+        /// <param name="postId">The post identifier.</param>
+        /// <returns></returns>
         public int Remove(int postId) {
 
             var post = glitterDb.PostTagMaps.Where(id => id.Post_id == postId).ToList();
@@ -33,6 +43,12 @@ namespace GlitterDll
             return 0;
         }
 
+        /// <summary>
+        /// Updates the specified post identifier.
+        /// </summary>
+        /// <param name="postId">The post identifier.</param>
+        /// <param name="newList">The new list.</param>
+        /// <returns></returns>
         public int Update(int postId,IList<int> newList) {
             Remove(postId);
             PostTagMapDto newPost = new PostTagMapDto();
@@ -40,10 +56,17 @@ namespace GlitterDll
            newPost.tagIdList = newList;
             Add(newPost);
             return 0;
-
-
         }
 
+        public IList<int> RetrieveTagId(int postId) {
+
+            var tags = glitterDb.PostTagMaps.Where(i => i.Post_id == postId).ToList();
+            IList<int> tagIds = new List<int>();
+            foreach (var i in tags) {
+                tagIds.Add(i.Tag_id);
+            }
+            return tagIds;
+        }
 
     }
 }

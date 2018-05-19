@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace GlitterDll
 {
-    class GetConnection
+   public class GetConnection
     {
         private GlitterdbEntities glitterDb = new GlitterdbEntities();
 

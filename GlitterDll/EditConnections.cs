@@ -9,7 +9,7 @@ namespace GlitterDll
     /// <summary>
     /// 
     /// </summary>
-    class EditConnections
+   public class EditConnections
     {
         private GlitterdbEntities glitterDb = new GlitterdbEntities();
 

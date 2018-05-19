@@ -1,0 +1,5 @@
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\DTOs\bin\Debug\DTOs.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\DTOs\bin\Debug\DTOs.pdb
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\DTOs\obj\Debug\DTOs.csprojResolveAssemblyReference.cache
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\DTOs\obj\Debug\DTOs.dll
+c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\DTOs\obj\Debug\DTOs.pdb

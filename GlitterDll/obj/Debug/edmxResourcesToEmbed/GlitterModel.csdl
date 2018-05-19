@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GlitterdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Follower_id" Type="Int32" Nullable="false" />
+    <Property Name="Followee_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Connection_User" FromRole="Connection" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Connection_User1" FromRole="Connection" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_Country" FromRole="Country" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Body" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="User_id" Type="Int32" Nullable="false" />
+    <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Like_count" Type="Int32" />
+    <Property Name="dislike_count" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Post_User" FromRole="Post" ToRole="User" />
+    <NavigationProperty Name="PostReactions" Relationship="Self.FK_PostReaction_Post" FromRole="Post" ToRole="PostReaction" />
+    <NavigationProperty Name="PostTagMaps" Relationship="Self.FK_PostTagMap_Post" FromRole="Post" ToRole="PostTagMap" />
+  </EntityType>
+  <EntityType Name="PostReaction">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_id" Type="Int32" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="Reaction" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_PostReaction_Post" FromRole="PostReaction" ToRole="Post" />
+    <NavigationProperty Name="User" Relationship="Self.FK_PostReaction_User" FromRole="PostReaction" ToRole="User" />
+  </EntityType>
+  <EntityType Name="PostTagMap">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Post_id" Type="Int32" Nullable="false" />
+    <Property Name="Tag_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_PostTagMap_Post" FromRole="PostTagMap" ToRole="Post" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_PostTagMap_Tag" FromRole="PostTagMap" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="text" Type="String" MaxLength="239" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="count" Type="Int32" />
+    <NavigationProperty Name="PostTagMaps" Relationship="Self.FK_PostTagMap_Tag" FromRole="Tag" ToRole="PostTagMap" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Connections" Relationship="Self.FK_Connection_User" FromRole="User" ToRole="Connection" />
+    <NavigationProperty Name="Connections1" Relationship="Self.FK_Connection_User1" FromRole="User" ToRole="Connection" />
+    <NavigationProperty Name="Country" Relationship="Self.FK_User_Country" FromRole="User" ToRole="Country" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Post_User" FromRole="User" ToRole="Post" />
+    <NavigationProperty Name="PostReactions" Relationship="Self.FK_PostReaction_User" FromRole="User" ToRole="PostReaction" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Connection_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Connection" Type="Self.Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="Followee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Connection_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Connection" Type="Self.Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="Follower_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Country_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostReaction_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="PostReaction" Type="Self.PostReaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PostReaction">
+        <PropertyRef Name="Post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostTagMap_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="PostTagMap" Type="Self.PostTagMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PostTagMap">
+        <PropertyRef Name="Post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostReaction_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="PostReaction" Type="Self.PostReaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PostReaction">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostTagMap_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="PostTagMap" Type="Self.PostTagMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PostTagMap">
+        <PropertyRef Name="Tag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GlitterdbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Connections" EntityType="Self.Connection" />
+    <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="PostReactions" EntityType="Self.PostReaction" />
+    <EntitySet Name="PostTagMaps" EntityType="Self.PostTagMap" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Connection_User" Association="Self.FK_Connection_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Connection" EntitySet="Connections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Connection_User1" Association="Self.FK_Connection_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Connection" EntitySet="Connections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_User" Association="Self.FK_Post_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostReaction_Post" Association="Self.FK_PostReaction_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="PostReaction" EntitySet="PostReactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostTagMap_Post" Association="Self.FK_PostTagMap_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="PostTagMap" EntitySet="PostTagMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostReaction_User" Association="Self.FK_PostReaction_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="PostReaction" EntitySet="PostReactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostTagMap_Tag" Association="Self.FK_PostTagMap_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="PostTagMap" EntitySet="PostTagMaps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

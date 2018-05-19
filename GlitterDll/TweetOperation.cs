@@ -7,10 +7,10 @@ using DTOs;
 
 namespace GlitterDll
 {
-    class TweetOperation
+   public class TweetOperation
     {
         private GlitterdbEntities glitterDb = new GlitterdbEntities();
-        TweetDto tweet ;
+        
 
 
         public int AddTweet(TweetDto newTweet) {

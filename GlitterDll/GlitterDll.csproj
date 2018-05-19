@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +49,86 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Connection.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditConnections.cs" />
+    <Compile Include="GlitterModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlitterModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GlitterModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GlitterModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlitterModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HashTags.cs" />
+    <Compile Include="GetConnection.cs" />
+    <Compile Include="GetTweets.cs" />
+    <Compile Include="Post.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostReaction.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostTagMap.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostTagMapOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactionOperation.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tag.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TweetOperation.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>GlitterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="GlitterModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GlitterModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="GlitterModel.edmx.diagram">
+      <DependentUpon>GlitterModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DTOs\DTOs.csproj">
+      <Project>{c9d60393-e23e-4bfc-83f7-0a922dd3cb8f}</Project>
+      <Name>DTOs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GlitterModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GlitterModel.edmx</DependentUpon>
+      <LastGenOutput>GlitterModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GlitterModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GlitterModel.edmx</DependentUpon>
+      <LastGenOutput>GlitterModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

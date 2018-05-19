@@ -22,11 +22,12 @@ namespace GlitterDll
             var followeeList = (from i in glitterDb.Connections where i.Follower_id == uId select i.Followee_id).ToList();
             followeeList.Add(uId);
             TweetDto tweetDetail;
-            foreach (var user in followeeList)
+            foreach (var personId in followeeList)
             {
 
-                var result = glitterDb.Posts.Where(i => i.User_id == uId).ToList();
-                
+                var result = glitterDb.Posts.Where(i => i.User_id == personId).ToList();
+                var personName = (from i in glitterDb.Users where i.id == personId select i.Firstname).ToString();
+                personName = personName + personId.ToString();
                 foreach (var item in result)
                 {
                     tweetDetail = new TweetDto();
@@ -34,10 +35,12 @@ namespace GlitterDll
                     tweetDetail.id = item.id;
                     tweetDetail.Body = item.Body;
                     tweetDetail.User_id = item.User_id;
+                    tweetDetail.User_name = personName;
                     tweetDetail.Created_at = item.Created_at;
                     tweetDetail.Like_count = item.Like_count;
                     tweetDetail.dislike_count = item.dislike_count;
-
+                    var react = (from post in glitterDb.PostReactions where post.id == item.id && post.user_id == uId select post.Reaction).Single();
+                    tweetDetail.reaction = react;
                     tweetList.Add(tweetDetail);
 
                 }
