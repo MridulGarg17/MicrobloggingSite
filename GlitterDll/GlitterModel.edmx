@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GlitterdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GlitterdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Connection">
           <Key>
             <PropertyRef Name="id" />
@@ -27,7 +27,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Body" Type="nvarchar" MaxLength="240" Nullable="false" />
           <Property Name="User_id" Type="int" Nullable="false" />
-          <Property Name="Created_at" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" Nullable="false" />
           <Property Name="Like_count" Type="int" />
           <Property Name="dislike_count" Type="int" />
         </EntityType>
@@ -77,6 +77,7 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Country_id" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_Connection_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -216,8 +217,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GlitterdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -246,7 +246,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Body" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
-          <Property Name="Created_at" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Like_count" Type="Int32" />
           <Property Name="dislike_count" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK_Post_User" FromRole="Post" ToRole="User" />
@@ -309,6 +309,7 @@
           <NavigationProperty Name="Country" Relationship="Self.FK_User_Country" FromRole="User" ToRole="Country" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Post_User" FromRole="User" ToRole="Post" />
           <NavigationProperty Name="PostReactions" Relationship="Self.FK_PostReaction_User" FromRole="User" ToRole="PostReaction" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Connection_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -525,6 +526,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GlitterdbModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />

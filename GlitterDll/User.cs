@@ -30,6 +30,7 @@ namespace GlitterDll
         public string Phone { get; set; }
         public string Image { get; set; }
         public int Country_id { get; set; }
+        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Connection> Connections { get; set; }

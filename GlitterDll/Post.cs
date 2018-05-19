@@ -24,7 +24,7 @@ namespace GlitterDll
         public int id { get; set; }
         public string Body { get; set; }
         public int User_id { get; set; }
-        public byte[] Created_at { get; set; }
+        public System.DateTime Created_at { get; set; }
         public Nullable<int> Like_count { get; set; }
         public Nullable<int> dislike_count { get; set; }
     
