@@ -22,12 +22,17 @@ namespace GlitterDll
         public bool Follow(int Uid, int fId) {
 
             Connection relation = new Connection();
+            var check = glitterDb.Connections.Where(i => i.Follower_id == Uid && i.Followee_id == fId).Single();
+            if (check != null)
+            {
+                relation.Follower_id = Uid;
+                relation.Followee_id = fId;
+                glitterDb.Connections.Add(relation);
+                glitterDb.SaveChanges();
+                return true;
+            }
 
-            relation.Follower_id = Uid;
-            relation.Followee_id = fId;
-            glitterDb.Connections.Add(relation);
-            glitterDb.SaveChanges();
-            return true;
+            return false;
         }
 
 

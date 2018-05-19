@@ -14,7 +14,8 @@ namespace GlitterBll
         IList<UserDto> reactedUser;
 
 
-        public IList<UserDto> GetReactedUser(int tweetId) {
+        public IList<UserDto> GetReactedUser(int tweetId)
+        {
             operationOnReaction = new ReactionOperation();
             reactedUser = new List<UserDto>();
             reactedUser = operationOnReaction.GetUsersWithReaction(tweetId);
@@ -23,8 +24,11 @@ namespace GlitterBll
         }
 
 
-        public void AddReaction() {
+        public void AddReaction(ReactionDto reaction)
+        {
 
+            operationOnReaction = new ReactionOperation();
+            operationOnReaction.AddReaction(reaction);
 
         }
 
