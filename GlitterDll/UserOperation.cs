@@ -44,21 +44,25 @@ namespace GlitterDll
         /// </summary>
         /// <param name="userRequest">The user request.</param>
         /// <returns></returns>
-        public int Signin(LoginDto userRequest) {
+        public UserDto Signin(LoginDto userRequest) {
 
             var user = glitteDb.Users.Where(i => i.Email == userRequest.Email).Single();
-
+            UserDto userIn = new UserDto();
             if (user != null) {
 
                 if (user.Password == userRequest.Password)
                 {
-                    return user.id;
+                    userIn.id = user.id;
+                    userIn.Firstname = user.Firstname;
+                    userIn.Lastname = user.Lastname;
+                    userIn.Image = user.Image;
+                    return userIn;
                 }
                 else {
-                    return 0;
+                    return userIn;
                 }
             }
-            return 0;
+            return userIn;
         }
 
 
