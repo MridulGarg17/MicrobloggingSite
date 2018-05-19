@@ -59,7 +59,22 @@ namespace GlitterDll
                 }
             }
             return 0;
-        } 
+        }
 
+
+        public IList<UserDto> SearchUser(string tag) {
+            var users = glitteDb.Users.Where(i => i.Firstname == tag || i.Lastname == tag).ToList();
+            IList<UserDto> searchedUsers = new List<UserDto>();
+            UserDto person = new UserDto();
+            foreach (var user in users) {
+                person.id = user.id;
+                person.Firstname = user.Firstname;
+                person.Lastname = user.Lastname;
+                person.Image = user.Image;
+
+                searchedUsers.Add(person);
+            }
+            return searchedUsers;
+        }
     }
 }
