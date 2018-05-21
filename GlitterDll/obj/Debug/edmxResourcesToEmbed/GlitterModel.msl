@@ -63,6 +63,7 @@
     <EntitySetMapping Name="Tags">
       <EntityTypeMapping TypeName="GlitterdbModel.Tag">
         <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="SearchCount" ColumnName="SearchCount" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="text" ColumnName="text" />
           <ScalarProperty Name="count" ColumnName="count" />

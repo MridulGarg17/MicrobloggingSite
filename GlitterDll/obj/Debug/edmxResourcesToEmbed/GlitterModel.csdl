@@ -71,6 +71,7 @@
     <Property Name="text" Type="String" MaxLength="239" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="count" Type="Int32" />
     <NavigationProperty Name="PostTagMaps" Relationship="Self.FK_PostTagMap_Tag" FromRole="Tag" ToRole="PostTagMap" />
+    <Property Name="SearchCount" Type="Int32" />
   </EntityType>
   <EntityType Name="User">
     <Key>

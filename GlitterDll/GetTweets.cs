@@ -27,7 +27,8 @@ namespace GlitterDll
 
                 var result = glitterDb.Posts.Where(i => i.User_id == personId).ToList();
                 var personName = (from i in glitterDb.Users where i.id == personId select i.Firstname).ToString();
-                personName = personName + personId.ToString();
+                var person = glitterDb.Users.Where(i => i.id == personId).SingleOrDefault();
+                personName = person.Firstname + person.Lastname;
                 foreach (var item in result)
                 {
                     tweetDetail = new TweetDto();
@@ -39,8 +40,14 @@ namespace GlitterDll
                     tweetDetail.Created_at = item.Created_at;
                     tweetDetail.Like_count = item.Like_count;
                     tweetDetail.dislike_count = item.dislike_count;
-                    var react = (from post in glitterDb.PostReactions where post.id == item.id && post.user_id == uId select post.Reaction).Single();
-                    tweetDetail.reaction = react;
+                    //var react = (from post in glitterDb.PostReactions where post.id == item.id && post.user_id == uId select post.Reaction).SingleOrDefault();
+                    var x = glitterDb.PostReactions.Where(i => i.Post_id == item.id && i.user_id == uId).SingleOrDefault();
+                    if (x != null)
+                        tweetDetail.reaction = x.Reaction;
+                    else
+                    {
+                        tweetDetail.reaction = null;
+                    }
                     tweetList.Add(tweetDetail);
 
                 }
@@ -85,14 +92,16 @@ namespace GlitterDll
         }
 
 
-        public int TotalTweet() {
+        public int TotalTweet()
+        {
 
             var count = glitterDb.Posts.Count(i => i.Created_at.Date == System.DateTime.Today);
 
             return count;
         }
 
-        public TweetDto MostLiked() {
+        public TweetDto MostLiked()
+        {
 
             var tweet = glitterDb.Posts.OrderByDescending(i => i.Like_count).ToList();
             TweetDto tweetDetail = new TweetDto();

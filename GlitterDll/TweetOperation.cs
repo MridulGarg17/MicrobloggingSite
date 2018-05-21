@@ -20,20 +20,26 @@ namespace GlitterDll
             tweet.User_id = newTweet.User_id;
             tweet.Like_count = newTweet.Like_count;
             tweet.dislike_count = newTweet.dislike_count;
-            tweet.Created_at = newTweet.Created_at;
+            tweet.Created_at = DateTime.Now;
             glitterDb.Posts.Add(tweet);
             glitterDb.SaveChanges();
-            var postId = glitterDb.Posts.Where(i => i.Created_at == tweet.Created_at).Single().id;
-           // var postId = glitterDb.Posts.OrderByDescending(x => x.id).First().id;
+           // var postId = glitterDb.Posts.Where(i => i.Created_at == tweet.Created_at).First().id;
+            var postId = glitterDb.Posts.OrderByDescending(x => x.id).First().id;
             return postId;
 
         }
 
-        public void RemoveTweet(int tId) {
-
+        public bool RemoveTweet(int tId) {
+            int uId = 1;
             var post = glitterDb.Posts.Where(i => i.id == tId).Single();
-            glitterDb.Posts.Remove(post);
-            glitterDb.SaveChanges();
+            if (post.User_id == uId)
+            {
+                glitterDb.Posts.Remove(post);
+                glitterDb.SaveChanges();
+                return true;
+            }
+
+            return false;
 
         }
 

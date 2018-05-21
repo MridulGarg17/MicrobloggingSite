@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using GlitterDll;
 namespace GlitterBll
 {
-    class TweetBll
+    public class TweetBll
     {
         private TweetOperation operationOnTweet;
         private GetTweets getTweets;
@@ -31,12 +31,15 @@ namespace GlitterBll
 
         }
 
-        public void GetAllTweet(int userId) {
+        public IList<TweetDto> GetAllTweet(int userId) {
 
             getTweets = new GetTweets();
             tweetList = new List<TweetDto>();
             tweetList = getTweets.GetAllTweets(userId);
+           // tweetList.Sort((obj1, obj2) => DateTime.Compare(obj2.CreatedAt, obj1.CreatedAt));
+            tweetList.OrderBy(f => f.Created_at);
 
+            return tweetList;
         }
 
         public void UpdateTweet(TweetDto newTweet) {
@@ -56,7 +59,7 @@ namespace GlitterBll
 
         }
 
-        public void DeleteTweet(int tweetId) {
+        public bool DeleteTweet(int tweetId) {
 
             mapper = new PostTagMapOperation();
             operationOnTweet = new TweetOperation();
@@ -65,7 +68,7 @@ namespace GlitterBll
             tagId = mapper.RetrieveTagId(tweetId);
             mapper.Remove(tweetId);
             operationOnTag.RemoveHashtag(tagId);
-            operationOnTweet.RemoveTweet(tweetId);
+            return operationOnTweet.RemoveTweet(tweetId);
 
 
 
@@ -79,7 +82,7 @@ namespace GlitterBll
 
                 if (splitOnSpace[i][0] == '#')
                 {
-                    hashTags.Add(splitOnSpace[i].Substring(1, splitOnSpace[i].Length));
+                    hashTags.Add(splitOnSpace[i].Substring(1, splitOnSpace[i].Length-1));
                 }
                 else {
                     continue;

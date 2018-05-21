@@ -19,20 +19,27 @@ namespace GlitterDll
         /// <returns></returns>
         public bool AddReaction(ReactionDto reaction) {
 
-            var postReaction = glitterDb.PostReactions.Where(i => i.Post_id == reaction.Post_id && i.user_id == reaction.user_id).Single();
+            var postReaction = glitterDb.PostReactions.Where(i => i.Post_id == reaction.Post_id && i.user_id == reaction.user_id).SingleOrDefault();
 
             if (postReaction != null)
             {
 
                 if (reaction.Reaction == postReaction.Reaction)
                 {
-                    var post = glitterDb.Posts.Where(i => i.id == reaction.Post_id).Single();
-                    if (reaction.Reaction)
+                    var post = glitterDb.Posts.Where(i => i.id == reaction.Post_id).SingleOrDefault();
+                    try
                     {
-                        post.Like_count = post.Like_count - 1;
+                        if (reaction.Reaction)
+                        {
+                            post.Like_count = post.Like_count - 1;
+                        }
+                        else
+                        {
+                            post.dislike_count = post.dislike_count - 1;
+                        }
                     }
-                    else {
-                        post.dislike_count = post.dislike_count - 1;
+                    catch (NullReferenceException) {
+
                     }
                     glitterDb.PostReactions.Remove(postReaction);
                     glitterDb.SaveChanges();
@@ -44,8 +51,6 @@ namespace GlitterDll
                     glitterDb.SaveChanges();
 
                 }
-
-
 
                 return true;
             }
@@ -92,7 +97,7 @@ namespace GlitterDll
         /// 
 
         public void updateReactionCount(int postId,bool reaction) {
-            var post = glitterDb.Posts.Where(i => i.id==postId).Single();
+            var post = glitterDb.Posts.Where(i => i.id==postId).SingleOrDefault();
 
             if (post != null) {
                 if (reaction)
@@ -109,18 +114,19 @@ namespace GlitterDll
 
 
         public IList<UserDto> GetUsersWithReaction(int postId) {
-
-            var user = glitterDb.Users.Include(i => i.PostReactions.Where(id => id.Post_id == postId)).ToList();
-
-            UserDto userWithReaction = new UserDto();
+          //  var list = glitterDb.Connections.Where(i => i.Followee_id == uId).Include(i => i.User).ToList();
+            //var user = glitterDb.Users.Include(i => i.PostReactions.Where(id => id.Post_id == postId)).ToList();
+            var user = glitterDb.PostReactions.Where(i => i.Post_id == postId).Include(i => i.User).ToList();
+            UserDto userWithReaction ;
 
             IList<UserDto> userList = new List<UserDto>();
 
             foreach (var u in user) {
-
-                userWithReaction.Firstname = u.Firstname;
-                userWithReaction.Lastname = u.Lastname;
-                userWithReaction.Image = u.Image;
+                userWithReaction = new UserDto();
+                userWithReaction.id = u.user_id;
+                userWithReaction.Firstname = u.User.Firstname;
+                userWithReaction.Lastname = u.User.Lastname;
+                userWithReaction.Image = u.User.Image;
 
                 userList.Add(userWithReaction);
 

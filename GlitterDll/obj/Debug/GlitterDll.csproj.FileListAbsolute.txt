@@ -10,3 +10,14 @@ c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterDll\bin
 c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterDll\obj\Debug\GlitterDll.csprojResolveAssemblyReference.cache
 c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterDll\obj\Debug\GlitterDll.dll
 c:\Users\mridulgarg\documents\visual studio 2017\Projects\Glitter\GlitterDll\obj\Debug\GlitterDll.pdb
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Web.Http.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\WebActivator.dll
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\Newtonsoft.Json.xml
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Web.Http.xml
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\mridulgarg\Documents\Visual Studio 2017\Projects\Glitter\GlitterDll\bin\Debug\WebActivator.pdb

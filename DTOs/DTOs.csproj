@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionDto.cs" />
+    <Compile Include="CountryDto.cs" />
     <Compile Include="LoginDto.cs" />
     <Compile Include="PostTagMapDto.cs" />
     <Compile Include="ReactionDto.cs" />

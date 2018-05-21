@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GlitterBll
 {
-    class ReactionBll
+    public class ReactionBll
     {
         ReactionOperation operationOnReaction;
         IList<UserDto> reactedUser;
@@ -24,11 +24,11 @@ namespace GlitterBll
         }
 
 
-        public void AddReaction(ReactionDto reaction)
+        public bool AddReaction(ReactionDto reaction)
         {
 
             operationOnReaction = new ReactionOperation();
-            operationOnReaction.AddReaction(reaction);
+            return operationOnReaction.AddReaction(reaction);
 
         }
 

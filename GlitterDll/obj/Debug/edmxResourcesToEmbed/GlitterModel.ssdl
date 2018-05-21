@@ -60,6 +60,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="text" Type="nvarchar" MaxLength="239" Nullable="false" />
     <Property Name="count" Type="int" />
+    <Property Name="SearchCount" Type="int" />
   </EntityType>
   <EntityType Name="User">
     <Key>

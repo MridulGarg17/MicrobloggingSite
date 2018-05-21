@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GlitterBll
 {
-    class AnalyticsBll
+    public class AnalyticsBll
     {
         HashTags hashTag;
         GetTweets getTweet = new GetTweets();

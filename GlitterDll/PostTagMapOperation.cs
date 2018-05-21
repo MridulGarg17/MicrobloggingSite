@@ -19,13 +19,15 @@ namespace GlitterDll
         /// <returns></returns>
         public int Add(PostTagMapDto mapper) {
             PostTagMap map = new PostTagMap();
-           int postId = mapper.postId;
-            map.Post_id = postId;
+         //  int postId = mapper.postId;
+          //  map.Post_id = postId;
             foreach (var item in mapper.tagIdList) {
+                map.Post_id = mapper.postId;
                 map.Tag_id = item;
                 glitterDb.PostTagMaps.Add(map);
+                glitterDb.SaveChanges();
             }
-            glitterDb.SaveChanges();
+           
             return 0;
         }
 

@@ -23,7 +23,7 @@ namespace GlitterDll
             {
 
                 newTag = new Tag();
-                var check = glitterDb.Tags.Where(i => i.text == s).Single();
+                var check = glitterDb.Tags.Where(i => i.text == s).SingleOrDefault();
 
                 if (check != null)
                 {

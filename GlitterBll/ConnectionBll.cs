@@ -10,7 +10,7 @@ namespace GlitterBll
 {
 
 
-    class ConnectionBll
+    public class ConnectionBll
     {
         EditConnections editConnection;
         GetConnection getConnection;

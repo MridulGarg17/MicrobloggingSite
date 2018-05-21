@@ -22,8 +22,8 @@ namespace GlitterDll
         public bool Follow(int Uid, int fId) {
 
             Connection relation = new Connection();
-            var check = glitterDb.Connections.Where(i => i.Follower_id == Uid && i.Followee_id == fId).Single();
-            if (check != null)
+            var check = glitterDb.Connections.Where(i => i.Follower_id == Uid && i.Followee_id == fId).SingleOrDefault();
+            if (check == null)
             {
                 relation.Follower_id = Uid;
                 relation.Followee_id = fId;
@@ -43,7 +43,7 @@ namespace GlitterDll
         /// <param name="fId">The f identifier.</param>
         /// <returns></returns>
         public bool UnFollowo(int uId, int fId) {
-            var relation = glitterDb.Connections.Where(user => user.Follower_id == uId && user.Followee_id == fId).Single();
+            var relation = glitterDb.Connections.Where(user => user.Follower_id == uId && user.Followee_id == fId).SingleOrDefault();
             if (relation != null)
             {
                 glitterDb.Connections.Remove(relation);
