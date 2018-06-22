@@ -13,10 +13,10 @@ namespace GlitterBll
         UserOperation operationOnUser;
 
 
-        public void Signup(SignupDto newUser) {
+        public bool Signup(SignupDto newUser) {
             operationOnUser = new UserOperation();
 
-            operationOnUser.Signup(newUser);
+            return operationOnUser.Signup(newUser);
 
 
         }

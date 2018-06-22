@@ -62,23 +62,29 @@ namespace GlitterDll
         /// <returns></returns>
         public IList<TweetDto> GetTagTweet(string tag)
         {
-            var hashTag = glitterDb.Tags.Where(id => id.text == tag).Single();
+            var hashTag = glitterDb.Tags.Where(id => id.text == tag).SingleOrDefault();
+
 
             if (hashTag != null)
             {
+                hashTag.SearchCount = hashTag.SearchCount + 1;
+                glitterDb.SaveChanges();
+
                 int tagId = hashTag.id;
-                var tweets = glitterDb.Posts.Include(i => i.PostTagMaps.Where(id => id.Tag_id == tagId)).ToList();
+                //var tweets = glitterDb.Posts.Include(i => i.PostTagMaps.Where(id => id.Tag_id == tagId)).ToList();
+                var tweets = glitterDb.PostTagMaps.Where(i => i.Tag_id == tagId).Include(i => i.Post).ToList();
                 TweetDto tweetDetail;
                 foreach (var item in tweets)
                 {
                     tweetDetail = new TweetDto();
 
-                    tweetDetail.id = item.id;
-                    tweetDetail.Body = item.Body;
-                    tweetDetail.User_id = item.User_id;
-                    tweetDetail.Created_at = item.Created_at;
-                    tweetDetail.Like_count = item.Like_count;
-                    tweetDetail.dislike_count = item.dislike_count;
+                    tweetDetail.id = item.Post.id;
+                    tweetDetail.Body = item.Post.Body;
+                    tweetDetail.User_id = item.Post.User_id;
+                    tweetDetail.User_name = item.Post.User.Firstname;
+                    tweetDetail.Created_at = item.Post.Created_at;
+                    tweetDetail.Like_count = item.Post.Like_count;
+                    tweetDetail.dislike_count = item.Post.dislike_count;
 
                     tweetList.Add(tweetDetail);
                 }
@@ -95,7 +101,7 @@ namespace GlitterDll
         public int TotalTweet()
         {
 
-            var count = glitterDb.Posts.Count(i => i.Created_at.Date == System.DateTime.Today);
+            var count = glitterDb.Posts.Count(i => DbFunctions.TruncateTime( i.Created_at) == System.DateTime.Today);
 
             return count;
         }

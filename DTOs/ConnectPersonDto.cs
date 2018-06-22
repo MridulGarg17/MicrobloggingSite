@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace DTOs
 {
-    public class ReactionDto
+    public class ConnectPersonDto
     {
-
-        public int Post_id { get; set; }
-        public int user_id { get; set; }
-        public bool Reaction { get; set; }
+        
+        public int fid { get; set; }
         public string sessionId { get; set; }
-
     }
 }

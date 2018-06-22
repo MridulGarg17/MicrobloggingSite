@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyticsDto.cs" />
     <Compile Include="ConnectionDto.cs" />
+    <Compile Include="ConnectPersonDto.cs" />
     <Compile Include="CountryDto.cs" />
+    <Compile Include="GetTweetDto.cs" />
     <Compile Include="LoginDto.cs" />
+    <Compile Include="NewSessionDto.cs" />
     <Compile Include="PostTagMapDto.cs" />
     <Compile Include="ReactionDto.cs" />
     <Compile Include="SignupDto.cs" />

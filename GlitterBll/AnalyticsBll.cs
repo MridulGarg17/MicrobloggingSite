@@ -13,24 +13,32 @@ namespace GlitterBll
         HashTags hashTag;
         GetTweets getTweet = new GetTweets();
         UserOperation mostActive;
-       
 
-        public string MostTrending() {
+        public AnalyticsDto Analytic() {
+            AnalyticsDto bonus = new AnalyticsDto();
+            bonus.MostTrending= MostTrending();
+            bonus.MostLiked = MostLiked();
+            bonus.ActiveUser = MostTweetByPerson();
+            bonus.TotaltweetsDay = TotalTweetsDay();
+            return bonus;
+        }
+
+        private string MostTrending() {
             hashTag = new HashTags();
             return(hashTag.MostTrending());
         }
 
-        public int TotalTweetsDay() {
+        private int TotalTweetsDay() {
             
             return (getTweet.TotalTweet());
         }
 
-        public string MostTweetByPerson() {
+        private UserDto MostTweetByPerson() {
             mostActive = new UserOperation();
             return (mostActive.MostTweetPerson());
         }
 
-        public TweetDto MostLiked() {
+        private TweetDto MostLiked() {
             return (getTweet.MostLiked());
         }
 

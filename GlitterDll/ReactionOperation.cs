@@ -18,7 +18,7 @@ namespace GlitterDll
         /// <param name="reaction">The reaction.</param>
         /// <returns></returns>
         public bool AddReaction(ReactionDto reaction) {
-
+            
             var postReaction = glitterDb.PostReactions.Where(i => i.Post_id == reaction.Post_id && i.user_id == reaction.user_id).SingleOrDefault();
 
             if (postReaction != null)
@@ -44,7 +44,7 @@ namespace GlitterDll
                     glitterDb.PostReactions.Remove(postReaction);
                     glitterDb.SaveChanges();
                 }
-                else
+                else if(postReaction.Reaction!=reaction.Reaction)
                 {
                     postReaction.Reaction = reaction.Reaction;
                     updateReactionCount(reaction.Post_id, reaction.Reaction);
@@ -60,8 +60,15 @@ namespace GlitterDll
             postReaction.user_id = reaction.user_id;
             postReaction.Reaction = reaction.Reaction;
             glitterDb.PostReactions.Add(postReaction);
+            var post1 = glitterDb.Posts.Where(i => i.id == reaction.Post_id).SingleOrDefault();
+
+            if (postReaction.Reaction)
+                post1.Like_count = post1.Like_count + 1;
+            else {
+                post1.dislike_count = post1.dislike_count + 1;
+            }
             glitterDb.SaveChanges();
-            updateReactionCount(reaction.Post_id, reaction.Reaction);
+           // updateReactionCount(reaction.Post_id, reaction.Reaction);
             return true;
 
         }
@@ -102,9 +109,11 @@ namespace GlitterDll
             if (post != null) {
                 if (reaction)
                 {
+                    post.dislike_count = post.dislike_count - 1;
                     post.Like_count = post.Like_count + 1;
                 }
                 else {
+                    post.Like_count = post.Like_count - 1;
                     post.dislike_count = post.dislike_count + 1;
                 }
 

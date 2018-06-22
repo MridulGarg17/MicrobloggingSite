@@ -1,10 +1,7 @@
 ﻿using DTOs;
 using GlitterBll;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using GlitterApi.Session;
 using System.Web.Http;
 
 namespace GlitterApi.Controllers
@@ -18,35 +15,58 @@ namespace GlitterApi.Controllers
         }
 
         // GET: api/Tweet/5
-        public IList<TweetDto> Get(int id)
+        [HttpGet]
+        [Route("api/tweet/{sessionId}")]
+        public IList<GetTweetDto> Get(string sessionId)
         {
-            TweetBll tweetBll = new TweetBll();
-            return tweetBll.GetAllTweet(id);
-            
+            if (Session.Session.Validate(sessionId))
+            {
+                TweetBll tweetBll = new TweetBll();
+                return tweetBll.GetAllTweet(Session.Session.Guid[sessionId]);
+            }
+            return null;
         }
 
 
         // POST: api/Tweet
         public bool Post(TweetDto tweetDtoObject)
         {
-            TweetBll tweetBll = new TweetBll();
-            tweetBll.AddTweet(tweetDtoObject);
-            return true;
+            if (ModelState.IsValid)
+            {
+                if (Session.Session.Validate(tweetDtoObject.SessionId))
+                {
+                    TweetBll tweetBll = new TweetBll();
+                    return tweetBll.AddTweet(tweetDtoObject);
+
+                }
+            }
+            return false;
         }
 
         // PUT: api/Tweet/5
-        public void Put(TweetDto updatedTweet)
+        public bool Put(TweetDto updatedTweet)
         {
-            TweetBll tweetBll = new TweetBll();
-            tweetBll.UpdateTweet(updatedTweet);
-
+            if (Session.Session.Validate(updatedTweet.SessionId))
+            {
+                TweetBll tweetBll = new TweetBll();
+               return tweetBll.UpdateTweet(updatedTweet);
+                
+            }
+            return false;
         }
 
         // DELETE: api/Tweet/5
-        public bool Delete(int id)
+        [HttpDelete]
+        [Route("api/Tweet/{SessionId}/{tid}")]
+        public bool Delete(string SessionId,int tid)
         {
-            TweetBll tweetBll = new TweetBll();
-            return tweetBll.DeleteTweet(id);
+            
+            if (Session.Session.Validate(SessionId))
+            {
+                TweetBll tweetBll = new TweetBll();
+                return tweetBll.DeleteTweet(Session.Session.Guid[SessionId],tid);
+            }
+            return false;
         }
     }
 }

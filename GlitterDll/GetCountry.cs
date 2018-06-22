@@ -14,9 +14,10 @@ namespace GlitterDll
         public IList<CountryDto> GetAllCountry() {
 
             var countries = glitterDb.Countries.ToList();
-            CountryDto countryObject = new CountryDto();
+            CountryDto countryObject;
 
             foreach (var x in countries) {
+                countryObject = new CountryDto();
                 countryObject.id = x.id;
                 countryObject.name = x.name;
 

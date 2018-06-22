@@ -26,6 +26,7 @@ namespace GlitterApi.Controllers
         [HttpGet]
         [Route("api/reaction/allusers/{tweetId}")]
         public IList<UserDto> GetAllUser(int tweetId) {
+
             ReactionBll reactionBll = new ReactionBll();
             return reactionBll.GetReactedUser(tweetId);
         }
@@ -33,8 +34,12 @@ namespace GlitterApi.Controllers
         // POST: api/Reaction
         public bool Post(ReactionDto reaction)
         {
-            ReactionBll reactionBll = new ReactionBll();
-            return reactionBll.AddReaction(reaction);
+            if (Session.Session.Validate(reaction.sessionId))
+            {
+                ReactionBll reactionBll = new ReactionBll();
+                return reactionBll.AddReaction(reaction);
+            }
+            return false;
         }
 
         // PUT: api/Reaction/5

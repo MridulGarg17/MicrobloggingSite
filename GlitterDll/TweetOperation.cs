@@ -18,8 +18,8 @@ namespace GlitterDll
 
             tweet.Body = newTweet.Body;
             tweet.User_id = newTweet.User_id;
-            tweet.Like_count = newTweet.Like_count;
-            tweet.dislike_count = newTweet.dislike_count;
+            tweet.Like_count = 0;
+            tweet.dislike_count = 0;
             tweet.Created_at = DateTime.Now;
             glitterDb.Posts.Add(tweet);
             glitterDb.SaveChanges();
@@ -29,11 +29,13 @@ namespace GlitterDll
 
         }
 
-        public bool RemoveTweet(int tId) {
-            int uId = 1;
+        public bool RemoveTweet(int uId,int tId) {
+           
             var post = glitterDb.Posts.Where(i => i.id == tId).Single();
+            var postreaction = glitterDb.PostReactions.Where(i => i.Post_id == tId).ToList();
             if (post.User_id == uId)
             {
+                glitterDb.PostReactions.RemoveRange(postreaction);
                 glitterDb.Posts.Remove(post);
                 glitterDb.SaveChanges();
                 return true;
@@ -47,7 +49,7 @@ namespace GlitterDll
             int postId = updateTweet.id;
             var post = glitterDb.Posts.Where(id => id.id == postId).Single();
             post.Body = updateTweet.Body;
-            post.Created_at = updateTweet.Created_at;
+            post.Created_at = DateTime.Now;
             glitterDb.SaveChanges();
 
         }

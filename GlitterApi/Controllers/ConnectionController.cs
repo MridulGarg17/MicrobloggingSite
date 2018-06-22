@@ -1,12 +1,7 @@
 ﻿using DTOs;
 using GlitterBll;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-
 namespace GlitterApi.Controllers
 {
     
@@ -15,23 +10,29 @@ namespace GlitterApi.Controllers
 
 
         [HttpGet]
-        [Route("api/connection/followers/{uid}")]
-        public IList<ConnectionDto> Followers(int uid)
+        [Route("api/connection/followers/{SessionId}")]
+        public IList<ConnectionDto> Followers(string SessionId)
         {
-            ConnectionBll connectionBll = new ConnectionBll();
-            return connectionBll.GetFollower(uid);
-
+            if (Session.Session.Guid.ContainsKey(SessionId))
+            {
+                ConnectionBll connectionBll = new ConnectionBll();
+                return connectionBll.GetFollower(Session.Session.Guid[SessionId]);
+            }
+            return null;
         }
 
         
         // GET: api/Connection
         [HttpGet]
-        [Route("api/connection/followees/{uid}")]
-        public IList<ConnectionDto> Followees(int uid)
+        [Route("api/connection/followees/{Sessionid}")]
+        public IList<ConnectionDto> Followees(string Sessionid)
         {
-            
-            ConnectionBll connectionBll = new ConnectionBll();
-            return connectionBll.GetFollowee(uid);
+            if (Session.Session.Guid.ContainsKey(Sessionid))
+            {
+                ConnectionBll connectionBll = new ConnectionBll();
+                return connectionBll.GetFollowee(Session.Session.Guid[Sessionid]);
+            }
+            return null;
         }
 
         // GET: api/Connection/5
@@ -41,19 +42,27 @@ namespace GlitterApi.Controllers
         //}
 
          [HttpPost]
-         [Route("api/connection/Follow/{fId}")]
-        public bool Follow(int fId) {
-            int uid = 1;
-            ConnectionBll connectionBll = new ConnectionBll();
-            return connectionBll.FollowUser(uid, fId);
+         [Route("api/connection/Follow")]
+        public bool Follow(ConnectPersonDto connect) {
+            
+            if (Session.Session.Guid.ContainsKey(connect.sessionId))
+            {
+                ConnectionBll connectionBll = new ConnectionBll();
+                return connectionBll.FollowUser(Session.Session.Guid[connect.sessionId], connect.fid);
+            }
+            return false;
         }
 
         [HttpPut]
-        [Route("api/connection/Unfollow/{fId}")]
-        public bool UnFollow(int fid) {
-            int uId = 1;
-            ConnectionBll connectionBll = new ConnectionBll();
-            return connectionBll.UnfollowUser(uId, fid);
+        [Route("api/connection/Unfollow")]
+        public bool UnFollow(ConnectPersonDto connect) {
+           
+            if (Session.Session.Guid.ContainsKey(connect.sessionId))
+            {
+                ConnectionBll connectionBll = new ConnectionBll();
+                return connectionBll.UnfollowUser(Session.Session.Guid[connect.sessionId], connect.fid);
+            }
+            return false;
         }
 
         // POST: api/Connection

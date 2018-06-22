@@ -71,7 +71,7 @@
     <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="Country_id" Type="int" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="10" Nullable="false" />
   </EntityType>

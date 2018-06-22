@@ -12,5 +12,6 @@ namespace DTOs
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string image { get; set; }
+        public string SessionId { get; set; }
     }
 }
